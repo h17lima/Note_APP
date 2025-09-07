@@ -1,24 +1,11 @@
-# README
+Este projeto consiste em um bloco de notas online desenvolvido em Ruby, voltado para organização e gestão de anotações de forma prática e segura. O sistema permite aos usuários criar, editar e armazenar notas em um ambiente web, com suporte a múltiplos dispositivos e autenticação de usuário. O objetivo principal é fornecer uma experiência de escrita fluida e organizada, incorporando funcionalidades modernas de notas digitais.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+O projeto suporta estrutura hierárquica de pastas e notas, permitindo que o usuário organize suas anotações de forma lógica. As notas podem ser formatadas com texto simples, garantindo clareza na leitura e edição. Para aumentar a produtividade, a aplicação oferece um mapa de notas, que exibe graficamente as conexões e referências entre diferentes anotações. Esta funcionalidade facilita a visualização de relacionamentos, permitindo ao usuário identificar rapidamente tópicos relacionados e navegar de maneira intuitiva entre eles.
 
-Things you may want to cover:
+Além disso, a aplicação conta com autenticação de usuário segura, incluindo suporte a autenticação de dois fatores (2FA). O sistema mantém um histórico de alterações de cada nota, possibilitando a recuperação de versões anteriores e garantindo maior segurança e controle sobre o conteúdo. A busca rápida permite localizar notas de forma eficiente, mesmo em grandes volumes de informações.
 
-* Ruby version
+O backend é desenvolvido em Ruby on Rails, utilizando PostgreSQL como banco de dados para armazenamento confiável e estruturado. O frontend é baseado em HTML, CSS e JavaScript, proporcionando uma interface web responsiva e amigável. A aplicação funciona como uma SPA (Single Page Application), garantindo navegação fluida sem recarregamento constante de páginas. A gestão de dependências é realizada com Bundler, e o controle de versão é feito com Git.
 
-* System dependencies
+Para instalar o projeto, é necessário clonar o repositório, instalar as dependências, configurar o banco de dados e iniciar o servidor. A aplicação pode ser acessada pelo navegador através do endereço local definido. Contribuições são bem-vindas, podendo ser realizadas via fork do projeto e envio de Pull Requests.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Este projeto é licenciado sob a MIT License, garantindo liberdade de uso, modificação e distribuição. Ele combina organização, segurança e facilidade de uso, oferecendo uma experiência completa para gerenciamento de notas online. O mapa de notas representa o diferencial do sistema, tornando a gestão do conhecimento mais visual, interativa e eficiente, ideal para usuários que desejam estruturar informações complexas e navegar rapidamente entre conteúdos inter-relacionados.
