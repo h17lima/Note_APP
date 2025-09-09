@@ -28,9 +28,11 @@ class NotesController < ApplicationController
       if @note.save
         format.html { redirect_to @note, notice: "Nota criada com sucesso!" }
         format.json { render :show, status: :created, location: @note }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_note_form", partial: "form", locals: { note: @note }) }
       end
     end
   end
@@ -41,9 +43,11 @@ class NotesController < ApplicationController
       if @note.update(note_params)
         format.html { redirect_to @note, notice: "Nota atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @note }
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@note, partial: "form", locals: { note: @note }) }
       end
     end
   end

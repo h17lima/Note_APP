@@ -12,13 +12,13 @@ export default class extends Controller {
     console.log("Método show() chamado!");
     this.sidebarTarget.classList.remove("hidden"); 
     this.overlayTarget.classList.remove("hidden");
-    this.overlayTarget.classList.add("opacity-30");
+    /*this.overlayTarget.classList.add("opacity-100");*/
 
-    /*setTimeout(() => {
-      this.overlayTarget.classList.remove("opacity-0");
-      this.overlayTarget.classList.add("opacity-10");
+    setTimeout(() => {
+      this.overlayTarget.classList.remove("bg-opacity-0");
+      this.overlayTarget.classList.add("bg-opacity-30");
     }, 10);
-    */
+    
     // MOVE O MENU DE ESQUERDA PARA O CENTRO
     this.sidebarTarget.classList.remove("-translate-x-full");
     this.sidebarTarget.classList.add("translate-x-0");
@@ -39,8 +39,8 @@ export default class extends Controller {
     this.contentTarget.classList.remove("translate-x-64");
     this.contentTarget.classList.add("translate-x-0");
 
-    this.overlayTarget.classList.remove("opacity-30");
-    this.overlayTarget.classList.add("opacity-0");
+    this.overlayTarget.classList.remove("bg-opacity-30");
+    this.overlayTarget.classList.add("bg-opacity-0");
     
     setTimeout(() => {
       this.overlayTarget.classList.add("hidden");
