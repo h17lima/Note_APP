@@ -1,0 +1,14 @@
+<div data-sidebar-target="sidebar"
+     class="fixed right-0 top-0 h-full w-64 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out hidden">
+  <div class="p-4 border-b">
+    <h2 class="text-lg font-semibold">Menu</h2>
+    <p class="text-sm text-gray-600 truncate"><%= current_user.email %></p>
+  </div>
+
+  <nav class="p-4">
+    <%= link_to "Gráfico", root_path, class: "block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded mb-2" %>
+    <%= link_to "Minhas Notas", notes_path, class: "block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded mb-2" %>
+    <%= link_to "Perfil", edit_user_registration_path, class: "block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded mb-2" %>
+    <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "block w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded" %>
+  </nav>
+</div>

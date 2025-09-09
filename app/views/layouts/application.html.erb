@@ -1,22 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title><%= content_for(:title) || "Notes App" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
 
-    <!-- Tailwind CSS compilado -->
+    <link rel="icon" href="/icon.png" type="image/png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
 
-  <body class="bg-gray-50 text-gray-800">
-    <main class="container mx-auto mt-10 px-5">
-      <%= yield %>
-    </main>
+    <div data-controller="sidebar" class="relative overflow-hidden">
+      <div data-sidebar-target="overlay"
+          data-action="click->sidebar#hide"
+          class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden opacity-0 transition-opacity duration-300 ease-in-out"></div>
+          
+      <% if user_signed_in? %>
+        <%= render "layouts/sidebar" %>
+      <% end %>
+
+      <div data-sidebar-target="content" class="min-h-screen flex flex-col transform transition-transform duration-300 ease-in-out">
+        <header class="bg-white shadow-md px-5 py-3 flex justify-between items-center">
+          <% if user_signed_in? %>
+
+            <button data-action="click->sidebar#show"
+                    class="w-10 h-10 bg-blue-600 text-white flex items-center justify-center rounded-full font-bold focus:outline-none text-lg hover:bg-blue-700 transition-colors duration-200">
+              <%= current_user.email[0].upcase %>
+            </button>
+          <% end %>
+          <h1 class="text-xl font-bold text-gray-800">Notes App</h1>
+          <button data-controller="theme"
+              data-action="click->theme#toggle"
+              data-sidebar-target="themeButton"
+              class="px-3 py-2 bg-gray-200 rounded-md text-sm hover:bg-gray-300 transition-colors duration-200 hidden">
+            🌙
+         </button>
+        </header>
+        
+        <main class="container mx-auto mt-5 px-5 flex-1">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+
   </body>
 </html>

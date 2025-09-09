@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/preflight"; /* Substitui @tailwind base */
+@import "tailwindcss/components"; /* Substitui @tailwind components */
+@import "tailwindcss/utilities"; /* Substitui @tailwind utilities */
+/* Estilos personalizados para dark mode */
+.dark .dark\:bg-gray-900 {
+  background-color: #111827;
+}
+
+.dark .dark\:bg-gray-800 {
+  background-color: #1f2937;
+}
+
+.dark .dark\:text-gray-100 {
+  color: #f3f4f6;
+}

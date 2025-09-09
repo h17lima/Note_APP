@@ -1,7 +1,28 @@
-<div id="<%= dom_id note %>" class="border p-4 rounded-md mb-4 bg-white shadow-sm">
-  <h2 class="font-bold text-xl mb-2"><%= note.title %></h2>
-  <div class="prose mb-2"><%= note.content %></div>
-  <% if note.tags.present? %>
-    <p class="text-sm text-gray-500">Tags: <%= note.tags %></p>
-  <% end %>
+<div id="<%= dom_id note %>" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 cursor-pointer flex flex-col">
+  
+  <div class="flex justify-between items-start mb-3">
+    <h2 class="text-xl font-semibold text-gray-900"><%= note.title %></h2>
+    <div class="flex flex-wrap gap-2">
+      <%= link_to note, class: "text-gray-500 hover:text-blue-500 transition-colors duration-200" do %>
+        <%= heroicon_svg "eye", class: "h-5 w-5" %>
+      <% end %>
+
+      <%= link_to edit_note_path(note), class: "text-gray-500 hover:text-blue-500 transition-colors duration-200" do %>
+        <%= heroicon_svg "pencil", class: "h-5 w-5" %>
+      <% end %>
+
+      <%= button_to note, method: :delete, form_class: "inline-block", class: "text-gray-500 hover:text-red-500 transition-colors duration-200", data: { turbo_confirm: "Are you sure?" } do %>
+        <%= heroicon_svg "trash", class: "h-5 w-5" %>
+      <% end %>
+    </div>
+  </div>
+
+  <p class="text-gray-700 whitespace-pre-wrap flex-1"><%= note.content %></p>
+  
+  <div class="flex justify-between items-center mt-4 text-xs text-gray-500">
+    <% if note.tags.present? %>
+      <span class="font-medium">Tags: <%= note.tags %></span>
+    <% end %>
+    <span><%= time_ago_in_words(note.updated_at) %> atrás</span>
+  </div>
 </div>
