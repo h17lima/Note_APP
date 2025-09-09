@@ -1,9 +1,5 @@
-import { application } from "./application"
+import { Application } from "@hotwired/stimulus"
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 
-// Importe e registre todos os controladores
-
-import SidebarController from "./sidebar_controller"
-application.register("sidebar", SidebarController)
-
-import ThemeController from "./theme_controller"
-application.register("theme", ThemeController)
+const application = Application.start()
+eagerLoadControllersFrom("controllers", application)
