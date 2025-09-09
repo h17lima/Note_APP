@@ -1,16 +1,17 @@
 class NotesController < ApplicationController
   before_action :set_note, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
-  # GET /notes or /notes.json
+  # GET /notes
   def index
-    @notes = Note.all
+    @notes = current_user.notes.order(created_at: :desc)
   end
 
-  # GET /notes/1 or /notes/1.json
+  # GET /notes/1
   def show
   end
 
-  # aqui prepara a nota do usuário
+  # GET /notes/new
   def new
     @note = current_user.notes.build
   end
@@ -19,27 +20,26 @@ class NotesController < ApplicationController
   def edit
   end
 
-  #vincula cada note com um User usando o current_user do Devise
+  # POST /notes
   def create
-  @note = current_user.notes.build(note_params)
+    @note = current_user.notes.build(note_params)
 
     respond_to do |format|
       if @note.save
         format.html { redirect_to @note, notice: "Nota criada com sucesso!" }
         format.json { render :show, status: :created, location: @note }
       else
-         format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
 
-
-  # PATCH/PUT /notes/1 or /notes/1.json
+  # PATCH/PUT /notes/1
   def update
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to @note, notice: "Note was successfully updated.", status: :see_other }
+        format.html { redirect_to @note, notice: "Nota atualizada com sucesso.", status: :see_other }
         format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,24 +48,22 @@ class NotesController < ApplicationController
     end
   end
 
-  # DELETE /notes/1 or /notes/1.json
+  # DELETE /notes/1
   def destroy
     @note.destroy!
-
     respond_to do |format|
-      format.html { redirect_to notes_path, notice: "Note was successfully destroyed.", status: :see_other }
+      format.html { redirect_to notes_path, notice: "Nota apagada com sucesso.", status: :see_other }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_note
-      @note = Note.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def note_params
-      params.expect(note: [ :title, :content, :tags, :user_id ])
-    end
+  def set_note
+    @note = Note.find(params[:id])
+  end
+
+  def note_params
+    params.require(:note).permit(:title, :content, :tags)
+  end
 end
