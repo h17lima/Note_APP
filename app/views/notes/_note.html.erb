@@ -1,38 +1,32 @@
 <div id="<%= dom_id note %>"
+     class="note-card relative bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-shadow duration-200"
      data-controller="note"
-     data-action="click@document->note#closeEditOnOutsideClick"
-     class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+     data-action="click@document->note#closeEditOnOutsideClick">
 
-  <div data-note-target="display" data-action="click->note#showForm" class="cursor-pointer">
-    <div class="flex justify-between items-start mb-3">
-      <h2 class="text-xl font-semibold text-gray-900"><%= note.title %></h2>
-      <div class="flex flex-wrap gap-2">
-        <%= link_to note, class: "text-gray-500 hover:text-blue-500 transition-colors duration-200" do %>
-          <%= heroicon_svg "eye", class: "h-5 w-5" %>
-        <% end %>
-        <%= button_to note, method: :delete, 
-form_class: "inline-block", class: "text-gray-500 hover:text-red-500 
-transition-colors duration-200", data: { turbo_confirm: "Are you sure?" } do %>
-          <%= heroicon_svg "trash", class: "h-5 w-5" %>
-        <% end %>
-      </div>
-    </div>
-    <p class="text-gray-700 whitespace-pre-wrap flex-1"><%= note.content %></p>
-    <div class="flex justify-between items-center mt-4 text-xs text-gray-500">
-      <% if note.tags.present? %>
-        <div class="flex flex-wrap gap-2">
-          <% note.tags.split(",").each do |tag| %>
-            <span class="bg-gray-200 px-2 py-1 rounded-full text-gray-700 font-medium">
-              #<%= tag.strip %>
-            </span>
-          <% end %>
-        </div>
-      <% end %>
-      <span><%= time_ago_in_words(note.updated_at) %> atrás</span>
-    </div>
+  <div class="absolute top-2 left-2 z-10">
+    <input type="checkbox"
+           class="form-checkbox h-4 w-4 text-blue-600 rounded cursor-pointer"
+           data-action="change->bulk-notes#toggleSelection"
+           data-bulk-notes-target="checkbox"
+           data-note-id="<%= note.id %>">
   </div>
-
-  <div data-note-target="form" class="hidden">
+  
+  <div class="absolute top-2 right-2 z-10">
+    <%= button_to note, method: :delete,
+            class: "text-gray-400 hover:text-red-500 transition-colors duration-200 focus:outline-none",
+            data: { turbo_confirm: "Tem certeza de que deseja excluir esta nota?" } do %>
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+    <% end %>
+  </div>
+  
+  <div data-note-target="display" data-action="click->note#showForm" class="cursor-pointer">
+    <h2 class="text-xl font-semibold text-gray-900 mb-2"><%= note.title %></h2>
+    <p class="text-gray-700 whitespace-pre-wrap"><%= note.content %></p>
+  </div>
+  
+  <div data-note-target="form" class="hidden mt-4">
     <%= turbo_frame_tag dom_id(note) + "_form" do %>
       <%= form_with model: note, class: "space-y-4", data: { action: "turbo:submit-end->note#hideForm" } do |form| %>
         <div>

@@ -25,3 +25,18 @@
     <p class="text-center text-gray-500 my-10">Nenhuma nota encontrada.</p>
   <% end %>
 </div>
+
+<div class="w-full mx-auto my-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl text-gray-900">Notes</h1>
+    
+    <button data-notes-target="deleteButton"
+            data-action="click->notes#deleteSelected"
+            class="hidden px-4 py-2 bg-red-600 text-white rounded-md font-medium text-sm hover:bg-red-700 transition-colors duration-200">
+      Excluir Selecionados
+    </button>
+    
+    <%= button_tag "+", type: "button", data: { action: "new-note-form#toggleForm" }, class: "text-blue-600 hover:text-blue-500 font-bold text-2xl cursor-pointer" %>
+  </div>
+
+  </div>

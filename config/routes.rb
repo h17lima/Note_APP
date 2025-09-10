@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Rotas para notas
-  resources :notes
+  resources :notes do
+    collection do
+      delete 'destroy_multiple'
+    end
+  end
 
   # Rota de health check
   get "up" => "rails/health#show", as: :rails_health_check
