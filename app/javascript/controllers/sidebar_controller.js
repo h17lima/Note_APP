@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["sidebar", "overlay", "content", "themeButton"] 
 
   connect() {
-    this.hide()
     console.log("Controlador sidebar conectado!")
   }
 
@@ -47,7 +46,13 @@ export default class extends Controller {
       this.sidebarTarget.classList.add("hidden");
     }, 300);
     
-    this.themeButtonTarget.classList.add("hidden");
     console.log("Menu escondido!");
+  }
+
+  // NOVA FUNÇÃO PARA ALTERNAR O TEMA DA PÁGINA
+  toggleTheme() {
+    const htmlElement = document.documentElement;
+    htmlElement.classList.toggle('dark');
+    console.log('Tema alternado para:', htmlElement.classList.contains('dark') ? 'escuro' : 'claro');
   }
 }

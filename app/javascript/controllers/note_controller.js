@@ -9,10 +9,8 @@ export default class extends Controller {
 
   showForm(event) {
     event.preventDefault(); 
-
     this.displayTarget.classList.add("hidden");
     this.formTarget.classList.remove("hidden");
-    
     this.formTarget.querySelector("input, textarea").focus();
   }
 
@@ -20,8 +18,17 @@ export default class extends Controller {
     if (event) {
       event.preventDefault(); 
     }
-    
     this.displayTarget.classList.remove("hidden");
     this.formTarget.classList.add("hidden");
+  }
+  
+  // Nova função para fechar o formulário ao clicar fora
+  closeEditOnOutsideClick(event) {
+    const isClickInside = this.element.contains(event.target);
+    const isEditing = !this.formTarget.classList.contains("hidden");
+
+    if (isEditing && !isClickInside) {
+      this.hideForm();
+    }
   }
 }

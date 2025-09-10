@@ -1,13 +1,15 @@
-<%= turbo_frame_tag "new_note_form" do %>
-  <%= form_with(model: note, class: "p-6 bg-white rounded-lg shadow-md space-y-4") do |form| %>
-    <div>
-      <%= form.text_field :title, placeholder: "Título", class: "w-full text-xl font-semibold border-none focus:ring-0 focus:outline-none placeholder-gray-400" %>
-    </div>
-    <div>
-      <%= form.text_area :content, placeholder: "Escreva algo...", rows: 5, class: "w-full text-gray-600 border-none focus:ring-0 focus:outline-none" %>
-    </div>
-    <div class="flex justify-end">
-      <%= form.submit "Salvar", class: "bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-md cursor-pointer" %>
-    </div>
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <%= turbo_frame_tag "new_note_form" do %>
+    <%= form_with(model: note, data: { action: "turbo:submit-end->new-note-form#hideFormAndReset", "new-note-form-target": "form" }) do |form| %>
+      <div>
+        <%= form.text_field :title, placeholder: "Título", class: "w-full text-xl font-semibold border-none focus:ring-0 focus:outline-none placeholder-gray-400" %>
+      </div>
+      <div>
+        <%= form.text_area :content, placeholder: "Escreva algo...", rows: 5, class: "w-full text-gray-600 border-none focus:ring-0 focus:outline-none" %>
+      </div>
+      <div class="flex justify-end">
+        <%= form.submit "Salvar", class: "bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-md cursor-pointer" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

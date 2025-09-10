@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload", preload_links: true %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="bg-gray-50 min-h-screen flex flex-col">
+  <body data-action="click@document->new-note-form#hideFormOutsideClick" class="bg-gray-50 min-h-screen flex flex-col">
 
     <div data-controller="sidebar" class="relative flex flex-row w-full h-full transform">
       <div data-sidebar-target="overlay"
@@ -21,22 +21,29 @@
         <%= render "layouts/sidebar" %>
       <% end %>
 
-      <div data-sidebar-target="content" class="min-h-screen flex-1 flex flex-col transform transition-transform duration-300 ease-in-out">
+      <div data-sidebar-target="content" data-controller="new-note-form" class="min-h-screen flex-1 flex flex-col transform transition-transform duration-300 ease-in-out">
         <header class="bg-white shadow-md px-5 py-3 flex justify-between items-center">
-          <% if user_signed_in? %>
+          <div class="flex items-center">
+            <% if user_signed_in? %>
+              <button data-action="click->sidebar#show"
+                      class="w-10 h-10 bg-blue-600 text-white flex items-center justify-center rounded-full font-bold focus:outline-none text-lg hover:bg-blue-700 transition-colors duration-200">
+                <%= current_user.email[0].upcase %>
+              </button>
+            <% end %>
+          </div>
 
-            <button data-action="click->sidebar#show"
-                    class="w-10 h-10 bg-blue-600 text-white flex items-center justify-center rounded-full font-bold focus:outline-none text-lg hover:bg-blue-700 transition-colors duration-200">
-              <%= current_user.email[0].upcase %>
+          <div class="flex items-center space-x-8">
+            <%= button_tag "+", type: "button", data: { action: "new-note-form#toggleForm" }, class: "text-blue-600 hover:text-blue-500 font-bold text-2xl cursor-pointer" %>
+            <button data-action="click->sidebar#toggleTheme"
+                    data-sidebar-target="themeButton"
+                    class="px-3 py-2 bg-gray-200 rounded-md text-sm hover:bg-gray-300 transition-colors duration-200">
+              🌙
             </button>
-          <% end %>
-          <h1 class="text-xl font-bold text-gray-800">Notes App</h1>
-          <button data-controller="theme"
-              data-action="click->theme#toggle"
-              data-sidebar-target="themeButton"
-              class="px-3 py-2 bg-gray-200 rounded-md text-sm hover:bg-gray-300 transition-colors duration-200 hidden">
-            🌙
-          </button>
+          </div>
+          
+          <div class="flex items-center">
+            <h1 class="text-xl font-bold text-gray-800">Notes App</h1>
+          </div>
         </header>
         
         <main class="container mx-auto mt-5 px-5 flex-1">

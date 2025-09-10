@@ -8,17 +8,20 @@
   <% end %>
 
   <div class="flex justify-between items-center mb-6">
-    <h1 class="font-bold text-4xl">Notes</h1>
-    <%= link_to "New note", new_note_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium" %>
+    <h1 class="font-bold text-4xl text-gray-900">Notes</h1>
+  </div>
+  
+  <div data-new-note-form-target="formContainer" class="mb-6 hidden">
+    <%= render "form", note: Note.new %>
   </div>
 
   <% if @notes.any? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div id="notes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <% @notes.each do |note| %>
         <%= render note %>
       <% end %>
     </div>
   <% else %>
-    <p class="text-center text-gray-500 my-10">No notes found.</p>
+    <p class="text-center text-gray-500 my-10">Nenhuma nota encontrada.</p>
   <% end %>
 </div>
